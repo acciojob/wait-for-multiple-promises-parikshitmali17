@@ -54,11 +54,11 @@
 // })
 // Promise.all([promise1,promise2,promise3])
 
-// Your JS code here
 let table = document.getElementById("output");
 
-// Initially, add a "Loading..." row
+// Initially, add a "Loading..." row with an id
 let loadingRow = document.createElement("tr");
+loadingRow.id = "loading"; // Add ID for Cypress test compatibility
 let loadingCell = document.createElement("td");
 loadingCell.colSpan = 2;
 loadingCell.innerText = "Loading...";
@@ -81,7 +81,10 @@ let promise3 = createPromise(3);
 // Wait for all promises to resolve
 Promise.all([promise1, promise2, promise3]).then((results) => {
     // Remove the "Loading..." row
-    table.removeChild(loadingRow);
+    let loadingElement = document.getElementById("loading");
+    if (loadingElement) {
+        table.removeChild(loadingElement);
+    }
 
     let totalTime = 0;
 
